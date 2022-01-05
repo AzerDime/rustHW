@@ -1,5 +1,5 @@
 # HW1 For CS410P - Rust
-## Personal Info:
+### Personal Info:
 
     Ian Guy
     HW1: Modular Exponentiation
@@ -8,7 +8,7 @@
 ## Project Goals:
 
     The goal of this project is to implement modular exponentiation using Rust.
-    A link to an explanation of the algorithm used can be found [here](https://en.wikipedia.org/wiki/Modular_exponentiation#Right-to-left_binary_method).
+    A link to an explanation of the algorithm used can be found here: https://en.wikipedia.org/wiki/Modular_exponentiation#Right-to-left_binary_method
 
 ## Project Approach:
 
