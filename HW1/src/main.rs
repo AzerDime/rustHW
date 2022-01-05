@@ -34,23 +34,26 @@ fn parse_args() -> Arguments {
     }
 }
 
-fn modexp(mut x: u64, mut y: u64, m: u64) {
+//modexp function which does the actual math. if doing unit testing, make it return a u64!
+fn modexp(x: u64, mut y: u64, m: u64) {
     let mut ans = 1;
-    if (m == 0) || (u128::from((m - 1) * (m - 1)) == u128::MAX) {
+    let mut z = u128::from(x);
+    if m == 0 {
         error();
     } else if m == 1 {
-        return;
+        return 0;
     }
 
     while y > 0 {
         if y % 2 == 1 {
-            ans = (ans * x) % m;
+            ans = (ans * z) % u128::from(m);
         }
         y /= 2;
-        x = (x * x) % m;
+        z = (z * z) % u128::from(m);
     }
     println!("{}", ans);
-    return ans;
+    //below return statement is needed for tests to see
+    //return ans.try_into().unwrap();
 }
 
 fn main() {

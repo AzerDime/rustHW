@@ -3,5 +3,5 @@
 version = 3
 
 [[package]]
-name = "HW1"
+name = "modexp"
 version = "0.1.0"
