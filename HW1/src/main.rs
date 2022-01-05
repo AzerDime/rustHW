@@ -3,6 +3,12 @@
 
 use std::env;
 
+struct Arguments {
+    x: u64,
+    y: u64,
+    m: u64,
+}
+
 //Error tool from hints
 fn error() -> ! {
     eprintln!("modexp: useage: modexp <x> <y> <m>");
@@ -10,21 +16,25 @@ fn error() -> ! {
 }
 
 //Parse tool from hints
-fn parsenum(s: &str) -> u64 {
+fn parsenum(s: String) -> u64 {
     s.parse().unwrap_or_else(|_| error())
 }
 
-fn main() {
-    //let numbers = Vec::new();
+fn parse_args() -> Arguments {
     let args: Vec<String> = env::args().skip(1).collect();
 
     if args.len() != 3 {
         error();
     }
 
-    let mut x = parsenum(&args[0]);
-    let mut y = parsenum(&args[1]);
-    let m = parsenum(&args[2]);
+    Arguments {
+        x: parsenum(args[0].clone()),
+        y: parsenum(args[1].clone()),
+        m: parsenum(args[2].clone()),
+    }
+}
+
+fn modexp(mut x: u64, mut y: u64, m: u64) {
     let mut ans = 1;
     if (m == 0) || (u128::from((m - 1) * (m - 1)) == u128::MAX) {
         error();
@@ -40,6 +50,12 @@ fn main() {
         x = (x * x) % m;
     }
     println!("{}", ans);
+    return ans;
+}
+
+fn main() {
+    let args = parse_args();
+    modexp(args.x, args.y, args.m);
 }
 
 //FROM THE HOMEWORK
