@@ -21,7 +21,7 @@ fn main() {
     if args.len() != 3 {
         error();
     }
-    println!("Correct value amount");
+
     let mut x = parsenum(&args[0]);
     let mut y = parsenum(&args[1]);
     let m = parsenum(&args[2]);
@@ -37,7 +37,22 @@ fn main() {
             ans = (ans * x) % m;
         }
         y /= 2;
-        x = (x ^ 2) % m;
+        x = (x * x) % m;
     }
     println!("{}", ans);
+}
+
+//FROM THE HOMEWORK
+#[test]
+fn test_modexp() {
+    // Largest prime less than 2**64.
+    // https://primes.utm.edu/lists/2small/0bit.html
+    let bigm = u64::max_value() - 58;
+    assert_eq!(0, modexp(bigm - 2, bigm - 1, 1));
+    assert_eq!(1, modexp(bigm - 2, bigm - 1, bigm));
+    assert_eq!(827419628471527655, modexp(bigm - 2, (1 << 32) + 1, bigm));
+    // https://practice.geeksforgeeks.org/problems/
+    //    modular-exponentiation-for-large-numbers/0
+    assert_eq!(4, modexp(10, 9, 6));
+    assert_eq!(34, modexp(450, 768, 517));
 }
