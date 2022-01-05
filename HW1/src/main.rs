@@ -1,7 +1,8 @@
 //!Homework 1 for CS410P - Rust
 // Ian Guy 2022
 
-use std::io;
+use std::str::FromStr;
+use std::env;
 
 //Error tool from hints
 fn error() -> !{
@@ -15,7 +16,20 @@ fn parsenum(s: &str) -> u64 {
 }
 
 fn main(){
-    //using some code from the rust-cli github page for command line inputs
-    let args = Cli::from_args();
+    let mut numbers = Vec::new();
+    for arg in env::args().skip(1) {
+        numbers.parsenum(u64::from_str(&arg));
+    }
+
+    if numbers.len() == 0 {
+        error();
+    }
     
+    let mut x = numbers[0];
+    let mut y = numbers[1];
+    let mut m = numbers[2];
+
+    if (m <= 0) || (m >= u128::MAX) {
+        error();
+    }
 }
