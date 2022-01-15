@@ -3,13 +3,6 @@
 version = 3
 
 [[package]]
-name = "HW2"
-version = "0.1.0"
-dependencies = [
- "toy_rsa_lib",
-]
-
-[[package]]
 name = "autocfg"
 version = "1.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -142,6 +135,13 @@ dependencies = [
  "glass_pumpkin",
  "num-bigint",
  "rand",
+]
+
+[[package]]
+name = "toyrsa"
+version = "0.1.0"
+dependencies = [
+ "toy_rsa_lib",
 ]
 
 [[package]]
