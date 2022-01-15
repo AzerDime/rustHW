@@ -12,7 +12,18 @@ pub fn lambda(p: u32, q: u32) -> u64 {
 
 /// Generate a pair of primes in the range `2**31..2**32`
 /// /// suitable for RSA encryption with exponent.
-pub fn genkey() -> (u32, u32) {}
+pub fn genkey() -> (u32, u32) {
+    let mut p = rsa_prime();
+    let mut q = rsa_prime();
+    loop {
+        if (EXP < lambda(p, q) && gcd(EXP, lambda(p, q)) == 1) {
+            break;
+        }
+        p = rsa_prime();
+        q = rsa_prime();
+    }
+    return (p, q);
+}
 
 /// Encrypt the plaintext `msg` using the RSA public `key`
 /// and return the ciphertext.
