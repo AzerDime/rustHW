@@ -28,13 +28,18 @@ fn test_toyrsa() {
 
     //Declare an iterator and a value to set how many times we want to test this.
     let mut iterate = 0;
-    let cases = 25000;
+    let cases = 5000;
 
     while iterate < cases {
         let (p, q) = genkey();
-        let pubkey = (p * q).into();
+        let pubkey = u64::from(p) * u64::from(q);
         let message_test: u32 = random();
         let encrypted_msg = encrypt(pubkey, message_test);
+        //If you want to use -- --nocapture...
+        if iterate % 1000 == 0{
+            println!("Public key, the generated message, and the encrypted message:");
+            println!("{},{},{},\n",pubkey,message_test,encrypted_msg);
+        }
         assert_eq!(message_test, decrypt((p, q), encrypted_msg));
         iterate += 1;
     }
