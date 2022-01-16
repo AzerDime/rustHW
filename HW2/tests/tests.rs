@@ -6,6 +6,8 @@ use toyrsa::*;
 
 #[test]
 fn test_toyrsa() {
+
+    //Some values which were either given in the assignment or are being used for edge cases.
     let edge_msg_zero = 0;
     let edge_msg_one = 1;
     let p_key_given = 0xed23e6cd;
@@ -30,6 +32,7 @@ fn test_toyrsa() {
     let mut iterate = 0;
     let cases = 5000;
 
+    //Does (cases) tests, printing the output once every 1000 tests if -- --nocapture call is used when testing.
     while iterate < cases {
         let (p, q) = genkey();
         let pubkey = u64::from(p) * u64::from(q);
