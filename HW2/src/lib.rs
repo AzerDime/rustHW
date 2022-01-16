@@ -22,6 +22,7 @@ pub fn genkey() -> (u32, u32) {
         p = rsa_prime();
         q = rsa_prime();
     }
+    //println!("{},{}", p, q);
     (p, q)
 }
 
