@@ -1,3 +1,6 @@
+//!Homework 3 for CS410P - Rust
+//! Ian Guy 2022
+
 /// Each slice in this struct's list is a word in some
 /// in-memory text document.
 #[derive(Debug, Default, Clone)]
