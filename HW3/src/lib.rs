@@ -109,21 +109,19 @@ impl<'a> KWIndex<'a> {
         } else {
             let mut outer_counter = 0;
             for i in &self.0 {
-                let mut counter = 0;                
-                for k in i.chars(){
-                    if k.is_uppercase(){
+                let mut counter = 0;
+                for k in i.chars() {
+                    if k.is_uppercase() {
                         counter += 1;
                     }
                 }
-                if counter == i.len()
-                {
-                    if outer_counter == n{
+                if counter == i.len() {
+                    if outer_counter == n {
                         return Some(i);
                     }
                     outer_counter += 1;
                 }
             }
-
         }
         print!("Error! n-th uppercase does not exist!");
         Some("NULL")

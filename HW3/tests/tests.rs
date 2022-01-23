@@ -3,7 +3,7 @@ use kwindex::*;
 #[test]
 fn test_kwindex() {
     let kwindex = KWIndex::new().extend_from_text("I am THE WALRUS");
-    //Checks to see if "THE" is only present once. 
+    //Checks to see if "THE" is only present once.
     assert_eq!(1, kwindex.count_matches("THE"));
     //Checks to see the length of the provided string. "I am THE WALRUS" should return 4.
     assert_eq!(4, kwindex.len());
