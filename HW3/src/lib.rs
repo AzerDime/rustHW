@@ -47,8 +47,7 @@ impl<'a> KWIndex<'a> {
                     && (k == i.chars().next().unwrap() || k == i.chars().last().unwrap())
                 {
                     holder = holder.trim_matches(|c: char| c == k);
-                }
-                else if !k.is_alphabetic() {
+                } else if !k.is_alphabetic() {
                     holder = "";
                     break;
                 }
@@ -105,21 +104,23 @@ impl<'a> KWIndex<'a> {
             print!("n-th uppercase requested outside of array size!");
             return fail_string;
         } else {
-            let mut counter = 0;
+            let mut outer_counter = 0;
             for i in &self.0 {
-                let mut lowers = false;
-                for k in i.chars() {
-                    if !k.is_uppercase() {
-                        lowers = true;
+                let mut counter = 0;                
+                for k in i.chars(){
+                    if k.is_uppercase(){
+                        counter += 1;
                     }
                 }
-                if !lowers{
-                    counter += 1;
-                    if counter == n {
+                if counter == i.len()
+                {
+                    if outer_counter == n{
                         return Some(i);
                     }
+                    outer_counter += 1;
                 }
             }
+
         }
         print!("Error! n-th uppercase does not exist!");
         Some("NULL")
