@@ -1,6 +1,7 @@
 HW1/target
 HW2/target
 HW3/target
+.vscode
 HW1/target/.rustc_info.json
 HW1/target/CACHEDIR.TAG
 HW1/target/debug/.cargo-lock

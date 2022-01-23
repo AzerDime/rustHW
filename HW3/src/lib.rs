@@ -56,6 +56,7 @@ impl<'a> KWIndex<'a> {
                 self.0.push(holder);
             }
         }
+        eprintln!("{:?}", self.0);
         self
     }
 
