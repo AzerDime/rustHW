@@ -47,7 +47,8 @@ impl<'a> KWIndex<'a> {
                     && (k == i.chars().next().unwrap() || k == i.chars().last().unwrap())
                 {
                     holder = holder.trim_matches(|c: char| c == k);
-                } else {
+                }
+                else if !k.is_alphabetic() {
                     holder = "";
                     break;
                 }
@@ -55,6 +56,7 @@ impl<'a> KWIndex<'a> {
             if !holder.is_empty() {
                 self.0.push(holder);
             }
+            eprintln!("{}", holder);
         }
         eprintln!("{:?}", self.0);
         self
@@ -103,22 +105,19 @@ impl<'a> KWIndex<'a> {
             print!("n-th uppercase requested outside of array size!");
             return fail_string;
         } else {
-            let mut bad_flag = 0;
             let mut counter = 0;
             for i in &self.0 {
-                let holder = i;
+                let mut lowers = false;
                 for k in i.chars() {
                     if !k.is_uppercase() {
-                        bad_flag = 1;
-                        break;
+                        lowers = true;
                     }
                 }
-                if bad_flag != 1 {
+                if !lowers{
                     counter += 1;
-                    bad_flag = 0;
-                }
-                if counter == n {
-                    return Some(holder);
+                    if counter == n {
+                        return Some(i);
+                    }
                 }
             }
         }
