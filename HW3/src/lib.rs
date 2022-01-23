@@ -1,5 +1,3 @@
-use std::ptr::null;
-
 /// Each slice in this struct's list is a word in some
 /// in-memory text document.
 #[derive(Debug, Default, Clone)]
@@ -8,7 +6,7 @@ pub struct KWIndex<'a>(Vec<&'a str>);
 impl<'a> KWIndex<'a> {
     /// Make a new empty target words list.
     pub fn new() -> Self {
-        let self() = Vec::new();
+        Self(Vec::new())
     }
 
     /// Parse the `target` text and add the sequence of
@@ -78,7 +76,7 @@ impl<'a> KWIndex<'a> {
         }
 
         let mut matches = 0;
-        for i in &self.word {
+        for i in &self.0 {
             if i == &keyword {
                 matches += 1;
             }
@@ -105,9 +103,9 @@ impl<'a> KWIndex<'a> {
             return fail_string;
         } else {
             let mut bad_flag = 0;
-            let counter = 0;
-            for i in self.0 {
-                let mut holder = i;
+            let mut counter = 0;
+            for i in &self.0 {
+                let holder = i;
                 for k in i.chars() {
                     if !k.is_uppercase() {
                         bad_flag = 1;
@@ -119,12 +117,12 @@ impl<'a> KWIndex<'a> {
                     bad_flag = 0;
                 }
                 if counter == n {
-                    return Some(i);
+                    return Some(holder);
                 }
             }
         }
         print!("Error! n-th uppercase does not exist!");
-        return Some("NULL");
+        Some("NULL")
     }
 
     /// Count the number of words that are indexed by this
