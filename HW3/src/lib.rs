@@ -1,3 +1,5 @@
+use std::ptr::null;
+
 /// Each slice in this struct's list is a word in some
 /// in-memory text document.
 #[derive(Debug, Default, Clone)]
@@ -6,7 +8,7 @@ pub struct KWIndex<'a>(Vec<&'a str>);
 impl<'a> KWIndex<'a> {
     /// Make a new empty target words list.
     pub fn new() -> Self {
-        todo!()
+        let self() = Vec::new();
     }
 
     /// Parse the `target` text and add the sequence of
@@ -40,7 +42,23 @@ impl<'a> KWIndex<'a> {
     /// assert_eq!(1, kwindex.count_matches("world"));
     /// ```
     pub fn extend_from_text(mut self, target: &'a str) -> Self {
-        todo!()
+        for i in target.split_whitespace() {
+            let mut holder = i;
+            for k in i.chars() {
+                if !k.is_alphabetic()
+                    && (k == i.chars().next().unwrap() || k == i.chars().last().unwrap())
+                {
+                    holder = holder.trim_matches(|c: char| c == k);
+                } else {
+                    holder = "";
+                    break;
+                }
+            }
+            if !holder.is_empty() {
+                self.0.push(holder);
+            }
+        }
+        self
     }
 
     /// Count the number of occurrences of the given `keyword`
@@ -55,7 +73,17 @@ impl<'a> KWIndex<'a> {
     /// assert_eq!(3, kwindex.count_matches("b"));
     /// ```
     pub fn count_matches(&self, keyword: &str) -> usize {
-        todo!()
+        if self.is_empty() {
+            return 0;
+        }
+
+        let mut matches = 0;
+        for i in &self.word {
+            if i == &keyword {
+                matches += 1;
+            }
+        }
+        matches
     }
 
     /// Return the *n*-th uppercase word (all characters are
@@ -71,7 +99,32 @@ impl<'a> KWIndex<'a> {
     /// assert_eq!(Some("THE"), kwindex.nth_uppercase(1));
     /// ```
     pub fn nth_uppercase(&self, n: usize) -> Option<&str> {
-        todo!()
+        let fail_string: Option<&str> = Some("NULL");
+        if n > self.len() {
+            print!("n-th uppercase requested outside of array size!");
+            return fail_string;
+        } else {
+            let mut bad_flag = 0;
+            let counter = 0;
+            for i in self.0 {
+                let mut holder = i;
+                for k in i.chars() {
+                    if !k.is_uppercase() {
+                        bad_flag = 1;
+                        break;
+                    }
+                }
+                if bad_flag != 1 {
+                    counter += 1;
+                    bad_flag = 0;
+                }
+                if counter == n {
+                    return Some(i);
+                }
+            }
+        }
+        print!("Error! n-th uppercase does not exist!");
+        return Some("NULL");
     }
 
     /// Count the number of words that are indexed by this
@@ -86,11 +139,11 @@ impl<'a> KWIndex<'a> {
     /// assert_eq!(2, kwindex.len());
     /// ```
     pub fn len(&self) -> usize {
-        todo!()
+        self.0.len()
     }
 
     /// Is this index empty?
     pub fn is_empty(&self) -> bool {
-        todo!()
+        self.len() == 0
     }
 }
